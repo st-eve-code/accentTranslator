@@ -1,6 +1,8 @@
 package com.accentbridge.app.incoming
 
+import android.Manifest
 import android.accessibilityservice.AccessibilityService
+import android.content.pm.PackageManager
 import android.os.Handler
 import android.os.Looper
 import android.view.accessibility.AccessibilityEvent
@@ -19,8 +21,13 @@ class MessageWatcherService : AccessibilityService() {
 
     override fun onServiceConnected() {
         super.onServiceConnected()
-        bubbleManager = BubbleOverlayManager(this)
         translator = MlKitTranslator()
+        bubbleManager = BubbleOverlayManager(
+            context = this,
+            canListen = { micGranted() },
+            onTranslateRequested = ::translateCurrentMessage,
+            onSeenRequested = { bubbleManager?.hide() }
+        )
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
@@ -48,20 +55,23 @@ class MessageWatcherService : AccessibilityService() {
         if (now - lastTranslatedAt < MIN_INTERVAL_MS) return
         lastSeenHash = candidate.hashCode()
         lastTranslatedAt = now
-        requestTranslation(candidate.take(MAX_TRANSLATE_LENGTH))
+        bubbleManager?.showOriginal(candidate.take(MAX_MESSAGE_LENGTH))
     }
 
-    private fun requestTranslation(text: String) {
+    private fun translateCurrentMessage(text: String) {
         val token = ++translationToken
         translator?.detectAndTranslate(text) { english ->
             handler.post {
                 if (token != translationToken) return@post
-                if (!english.isNullOrBlank()) {
-                    bubbleManager?.show(english)
-                }
+                bubbleManager?.showTranslated(
+                    english?.takeIf { it.isNotBlank() } ?: text
+                )
             }
         }
     }
+
+    private fun micGranted(): Boolean =
+        checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
 
     private fun collectLeafTexts(node: AccessibilityNodeInfo?, depth: Int, out: MutableList<String>) {
         if (node == null || depth > MAX_TREE_DEPTH) return
@@ -80,6 +90,7 @@ class MessageWatcherService : AccessibilityService() {
             if (trimmed.length < MIN_TEXT_LENGTH) continue
             if (trimmed.length > MAX_MESSAGE_LENGTH) continue
             if (UI_CHROME.any { trimmed.equals(it, ignoreCase = true) }) continue
+            if (ACTION_LABELS.any { trimmed.equals(it, ignoreCase = true) }) continue
             return trimmed
         }
         return null
@@ -89,6 +100,7 @@ class MessageWatcherService : AccessibilityService() {
 
     override fun onDestroy() {
         bubbleManager?.hide()
+        bubbleManager = null
         translator?.close()
         super.onDestroy()
     }
@@ -98,8 +110,9 @@ class MessageWatcherService : AccessibilityService() {
         private const val MIN_INTERVAL_MS = 1500L
         private const val MIN_TEXT_LENGTH = 3
         private const val MAX_MESSAGE_LENGTH = 400
-        private const val MAX_TRANSLATE_LENGTH = 450
         private const val MAX_TREE_DEPTH = 40
+
+        private val ACTION_LABELS = setOf("translate", "seen", "voice", "mark as seen")
 
         private val UI_CHROME = setOf(
             "online", "typing", "typing\u2026", "recording", "last seen", "last seen today",

@@ -18,7 +18,6 @@ import android.widget.Toast
 import com.accentbridge.app.R
 import com.accentbridge.app.engine.AccentEngine
 import com.accentbridge.app.engine.AccentPrefs
-import com.accentbridge.app.engine.SentenceTranslator
 
 class AccentKeyboardService : InputMethodService() {
 
@@ -26,25 +25,18 @@ class AccentKeyboardService : InputMethodService() {
         const val MAX_PENDING = 90
         const val REPEAT_DELAY_MS = 350L
         const val REPEAT_INTERVAL_MS = 60L
-        const val PREVIEW_DELAY_MS = 400L
     }
-
-    private class Outgoing(val raw: String, val trailing: String)
 
     private enum class Shift { OFF, ON, CAPS }
     private enum class Page { LETTERS, SYMBOLS }
 
     private var engine: AccentEngine? = null
     private var accents: List<Pair<String, String>> = emptyList()
+    private var loadedPref: String? = null
 
     private val pending = StringBuilder()
-    private val outgoingQueue = ArrayDeque<Outgoing>()
     private val repeatHandler = Handler(Looper.getMainLooper())
-    private val previewHandler = Handler(Looper.getMainLooper())
     private var repeatRunnable: Runnable? = null
-    private var previewRunnable: Runnable? = null
-    private var previewToken = 0
-    private var committing = false
 
     private var shift = Shift.ON
     private var page = Page.LETTERS
@@ -70,6 +62,7 @@ class AccentKeyboardService : InputMethodService() {
 
     override fun onStartInput(attribute: EditorInfo?, restarting: Boolean) {
         super.onStartInput(attribute, restarting)
+        syncAccentIfChanged()
         if (!restarting) {
             pending.setLength(0)
             updatePreview()
@@ -79,6 +72,7 @@ class AccentKeyboardService : InputMethodService() {
 
     override fun onStartInputView(info: EditorInfo?, restarting: Boolean) {
         super.onStartInputView(info, restarting)
+        syncAccentIfChanged()
         refreshAccentButton()
         updatePreview()
     }
@@ -91,14 +85,20 @@ class AccentKeyboardService : InputMethodService() {
 
     override fun onDestroy() {
         stopRepeat()
-        previewHandler.removeCallbacksAndMessages(null)
         super.onDestroy()
     }
 
     private fun reloadEngine() {
-        val saved = AccentPrefs.get(this)
-        engine = saved?.takeIf { it != AccentPrefs.OFF_ID }?.let { AccentEngine.load(this, accentId = it) }
+        loadedPref = AccentPrefs.get(this)
+        engine = loadedPref?.takeIf { it != AccentPrefs.OFF_ID }?.let { AccentEngine.load(this, accentId = it) }
         updatePreview()
+    }
+
+    private fun syncAccentIfChanged() {
+        if (AccentPrefs.get(this) != loadedPref) {
+            reloadEngine()
+            refreshAccentButton()
+        }
     }
 
     private fun rebuild() {
@@ -275,34 +275,8 @@ class AccentKeyboardService : InputMethodService() {
         refreshShift()
         updatePreview()
         val ic = currentInputConnection ?: return
-        if (raw.isNotBlank()) {
-            outgoingQueue.addLast(Outgoing(raw, trailing))
-            drainOutgoing()
-        } else {
-            ic.commitText(trailing, 1)
-        }
-    }
-
-    private fun drainOutgoing() {
-        if (committing) return
-        while (outgoingQueue.isNotEmpty() && !committing) {
-            val ic = currentInputConnection ?: return
-            val eng = engine
-            val item = outgoingQueue.first()
-            val lang = eng?.language
-            if (eng == null || lang == null) {
-                ic.commitText((eng?.translate(item.raw) ?: item.raw) + item.trailing, 1)
-                outgoingQueue.removeFirst()
-                continue
-            }
-            committing = true
-            SentenceTranslator.translate(item.raw, lang) { result ->
-                currentInputConnection?.commitText((result ?: eng.translate(item.raw)) + item.trailing, 1)
-                committing = false
-                if (outgoingQueue.isNotEmpty()) outgoingQueue.removeFirst()
-                drainOutgoing()
-            }
-        }
+        val converted = engine?.translate(raw) ?: raw
+        ic.commitText(converted + trailing, 1)
     }
 
     private fun backspace() {
@@ -412,26 +386,11 @@ class AccentKeyboardService : InputMethodService() {
         strip.visibility = if (engine == null) View.GONE else View.VISIBLE
         val raw = pending.toString()
         previewOriginal?.text = raw
-        previewRunnable?.let { previewHandler.removeCallbacks(it) }
-        previewRunnable = null
-        previewToken++
         if (raw.isBlank()) {
             previewConverted?.text = ""
             return
         }
-        val eng = engine ?: return
-        previewConverted?.text = eng.translate(raw)
-        val lang = eng.language ?: return
-        val token = previewToken
-        val runnable = Runnable {
-            SentenceTranslator.translate(raw, lang) { result ->
-                if (token == previewToken && result != null) {
-                    previewConverted?.text = result
-                }
-            }
-        }
-        previewRunnable = runnable
-        previewHandler.postDelayed(runnable, PREVIEW_DELAY_MS)
+        previewConverted?.text = engine?.translate(raw)
     }
 
     private fun refreshShift() {

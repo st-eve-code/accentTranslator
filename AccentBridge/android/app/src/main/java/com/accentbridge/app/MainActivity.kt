@@ -1,10 +1,10 @@
 package com.accentbridge.app
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,18 +16,15 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import com.accentbridge.app.engine.AccentEngine
 import com.accentbridge.app.engine.AccentPrefs
-import com.accentbridge.app.engine.SentenceTranslator
 
 class MainActivity : Activity() {
 
     private var engine: AccentEngine? = null
     private var checkedAccentId: String = AccentPrefs.OFF_ID
-    private val previewHandler = Handler(Looper.getMainLooper())
-    private var previewRunnable: Runnable? = null
-    private var previewToken = 0
 
     private lateinit var statusKeyboard: TextView
     private lateinit var statusAccessibility: TextView
+    private lateinit var statusMic: TextView
     private lateinit var radioGroup: RadioGroup
     private lateinit var inputText: EditText
     private lateinit var resultText: TextView
@@ -38,6 +35,7 @@ class MainActivity : Activity() {
 
         statusKeyboard = findViewById(R.id.status_keyboard)
         statusAccessibility = findViewById(R.id.status_accessibility)
+        statusMic = findViewById(R.id.status_mic)
         radioGroup = findViewById(R.id.rg_accents)
         inputText = findViewById(R.id.edit_input)
         resultText = findViewById(R.id.txt_result)
@@ -47,6 +45,9 @@ class MainActivity : Activity() {
         }
         findViewById<Button>(R.id.btn_enable_accessibility).setOnClickListener {
             startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+        }
+        findViewById<Button>(R.id.btn_enable_mic).setOnClickListener {
+            requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), MIC_PERMISSION_REQUEST)
         }
         findViewById<Button>(R.id.btn_convert).setOnClickListener { refreshPreview() }
 
@@ -62,6 +63,11 @@ class MainActivity : Activity() {
     override fun onResume() {
         super.onResume()
         refreshStatus()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == MIC_PERMISSION_REQUEST) refreshStatus()
     }
 
     private fun populateAccents() {
@@ -100,23 +106,7 @@ class MainActivity : Activity() {
 
     private fun refreshPreview() {
         val source = inputText.text.toString()
-        val eng = engine
-        resultText.text = eng?.translate(source) ?: source
-        previewRunnable?.let { previewHandler.removeCallbacks(it) }
-        previewRunnable = null
-        previewToken++
-        val lang = eng?.language
-        if (eng == null || lang == null || source.isBlank()) return
-        val token = previewToken
-        val runnable = Runnable {
-            SentenceTranslator.translate(source, lang) { result ->
-                if (token == previewToken && result != null) {
-                    resultText.text = result
-                }
-            }
-        }
-        previewRunnable = runnable
-        previewHandler.postDelayed(runnable, 350)
+        resultText.text = engine?.translate(source) ?: source
     }
 
     private fun refreshStatus() {
@@ -128,5 +118,11 @@ class MainActivity : Activity() {
         statusAccessibility.setText(
             if (services.contains(packageName)) R.string.status_a11y_on else R.string.status_a11y_off
         )
+        val micGranted = checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+        statusMic.setText(if (micGranted) R.string.status_mic_on else R.string.status_mic_off)
+    }
+
+    private companion object {
+        const val MIC_PERMISSION_REQUEST = 41
     }
 }

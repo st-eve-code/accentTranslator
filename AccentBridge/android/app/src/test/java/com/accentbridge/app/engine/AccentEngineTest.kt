@@ -129,6 +129,15 @@ class AccentEngineTest {
     }
 
     @Test
+    fun `scottish home becomes hame`() {
+        val asset = File("src/main/assets/accents.json")
+        assumeTrue(asset.exists())
+        val scottish = AccentEngine.fromJson(asset.readText(), "scottish")
+        assertEquals("Hame.", scottish.translate("Home."))
+        assertEquals("I am at hame noo.", scottish.translate("I am at home now."))
+    }
+
+    @Test
     fun `language accents expose ml kit target`() {
         val asset = File("src/main/assets/accents.json")
         assumeTrue(asset.exists())

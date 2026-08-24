@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "default_accent": "scottish",
   "accents": {
     "scottish": {
@@ -33,8 +33,14 @@
         "girl": "lassie",
         "friend": "pal",
         "house": "hoose",
+        "home": "hame",
         "down": "doon",
         "out": "oot",
+        "now": "noo",
+        "how": "hoo",
+        "right": "richt",
+        "alright": "awright",
+        "you're": "ye're",
         "tired": "scunnered",
         "you": "ye",
         "your": "yer"

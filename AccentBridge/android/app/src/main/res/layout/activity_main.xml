@@ -40,6 +40,13 @@
             android:layout_marginTop="4dp"
             android:textSize="13sp" />
 
+        <TextView
+            android:id="@+id/status_mic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="13sp" />
+
         <Button
             android:id="@+id/btn_enable_keyboard"
             android:layout_width="match_parent"
@@ -52,6 +59,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/enable_bubble" />
+
+        <Button
+            android:id="@+id/btn_enable_mic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enable_mic" />
 
         <TextView
             android:layout_width="match_parent"

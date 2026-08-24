@@ -5,6 +5,11 @@ Lightweight cross-platform (Android + iOS) text translation system with **no clo
 - **Outgoing**: a custom soft keyboard converts typed English into a chosen accent/dialect (Scottish, Southern US, Australian) instantly via a local JSON rule + regex engine.
 - **Incoming**: on-device Google ML Kit translation of foreign-language messages, surfaced as a floating bubble overlay (Android) or a share-sheet bubble card (iOS).
 
+## Documentation
+
+- [Architecture](docs/architecture.md) - how the outgoing and incoming pipelines work on each platform, and why they're built that way.
+- [Adding an accent](docs/adding-an-accent.md) - everything needed to contribute a new accent without touching code.
+
 ## Repository layout
 
 ```
