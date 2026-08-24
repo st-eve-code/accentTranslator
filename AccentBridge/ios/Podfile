@@ -1,0 +1,11 @@
+platform :ios, '15.0'
+
+abstract_target 'AccentBridgeDefaults' do
+  use_frameworks!
+
+  pod 'GoogleMLKit/Translate', '~> 4.0'
+  pod 'GoogleMLKit/LanguageID', '~> 4.0'
+
+  target 'AccentBridge'
+  target 'ShareExtension'
+end

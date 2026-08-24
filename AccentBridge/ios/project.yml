@@ -1,0 +1,87 @@
+name: AccentBridge
+options:
+  bundleIdPrefix: com.accentbridge
+  deploymentTarget:
+    iOS: "15.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    CODE_SIGN_STYLE: Automatic
+
+targets:
+  AccentBridge:
+    type: application
+    platform: iOS
+    sources:
+      - path: AccentBridge
+      - path: Shared/Resources/accents.json
+        buildPhase: resources
+    dependencies:
+      - target: KeyboardExtension
+      - target: ShareExtension
+    entitlements:
+      path: AccentBridge/AccentBridge.entitlements
+      properties:
+        com.apple.security.application-groups: [group.com.accentbridge.shared]
+    info:
+      path: AccentBridge/Info.plist
+      properties:
+        UILaunchScreen: {}
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+        CFBundleDisplayName: AccentBridge
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.accentbridge.app
+        TARGETED_DEVICE_FAMILY: "1"
+
+  KeyboardExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: KeyboardExtension
+      - path: Shared/AccentStore.swift
+      - path: AccentBridge/Engine/AccentEngine.swift
+      - path: Shared/Resources/accents.json
+        buildPhase: resources
+    entitlements:
+      path: KeyboardExtension/KeyboardExtension.entitlements
+      properties:
+        com.apple.security.application-groups: [group.com.accentbridge.shared]
+    info:
+      path: KeyboardExtension/Info.plist
+      properties:
+        CFBundleDisplayName: AccentBridge Keyboard
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.keyboard-service
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).KeyboardViewController
+          NSExtensionAttributes:
+            PrimaryLanguage: en-US
+            RequestsOpenAccess: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.accentbridge.app.keyboard
+        TARGETED_DEVICE_FAMILY: "1"
+
+  ShareExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: ShareExtension
+    entitlements:
+      path: ShareExtension/ShareExtension.entitlements
+      properties:
+        com.apple.security.application-groups: [group.com.accentbridge.shared]
+    info:
+      path: ShareExtension/Info.plist
+      properties:
+        CFBundleDisplayName: Translate to English
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.share-services
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ShareViewController
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.accentbridge.app.share
+        TARGETED_DEVICE_FAMILY: "1"

@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "default_accent": "scottish",
+  "accents": {
+    "scottish": {
+      "label": "Scottish",
+      "words": {
+        "going to go": "gonnae go",
+        "don't know": "dinnae ken",
+        "do not": "dinnae",
+        "don't": "dinnae",
+        "cannot": "cannae",
+        "can't": "cannae",
+        "can not": "cannae",
+        "have not": "havnae",
+        "haven't": "havnae",
+        "is not": "isnae",
+        "isn't": "isnae",
+        "am not": "amnae",
+        "going to": "gonnae",
+        "about": "aboot",
+        "myself": "masel",
+        "yourself": "yersel",
+        "know": "ken",
+        "yes": "aye",
+        "not": "nae",
+        "no": "nae",
+        "small": "wee",
+        "little": "wee",
+        "man": "lad",
+        "boy": "laddie",
+        "woman": "lass",
+        "girl": "lassie",
+        "friend": "pal",
+        "house": "hoose",
+        "down": "doon",
+        "out": "oot",
+        "tired": "scunnered",
+        "you": "ye",
+        "your": "yer"
+      },
+      "regex": [
+        { "pattern": "\\bwith\\b", "replace": "wi'", "case_insensitive": true },
+        { "pattern": "(?<=[a-z])ing\\b", "replace": "in'", "case_insensitive": true }
+      ]
+    },
+    "southern_us": {
+      "label": "Southern US",
+      "words": {
+        "about to": "fixin' to",
+        "going to": "gonna",
+        "want to": "wanna",
+        "got to": "gotta",
+        "kind of": "kinda",
+        "sort of": "sorta",
+        "you all": "y'all",
+        "you guys": "y'all",
+        "youse guys": "y'all",
+        "is not": "ain't",
+        "are not": "ain't",
+        "am not": "ain't",
+        "isn't": "ain't",
+        "aren't": "ain't",
+        "over there": "over yonder",
+        "mother": "mama",
+        "mom": "mama",
+        "grandmother": "meemaw"
+      },
+      "regex": [
+        { "pattern": "(?<=[a-z])ing\\b", "replace": "in'", "case_insensitive": true }
+      ]
+    },
+    "australian": {
+      "label": "Australian",
+      "words": {
+        "good day": "g'day",
+        "thank you": "ta",
+        "thanks": "ta",
+        "friend": "mate",
+        "barbecue": "barbie",
+        "breakfast": "brekkie",
+        "afternoon": "arvo",
+        "ambulance": "ambo",
+        "gas station": "servo",
+        "service station": "servo",
+        "vegetables": "veggies",
+        "definitely": "defs",
+        "probably": "probs",
+        "no problem": "no worries",
+        "chocolate": "choccy"
+      },
+      "regex": [
+        { "pattern": "\\bvery\\b", "replace": "heaps", "case_insensitive": true }
+      ]
+    }
+  }
+}

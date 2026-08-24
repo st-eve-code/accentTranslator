@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AccentBridge</string>
+    <string name="tagline">Offline accent keyboard + on-device incoming translation. No cloud, no tokens.</string>
+    <string name="ime_label">AccentBridge Keyboard</string>
+    <string name="subtype_en_us">English (US)</string>
+
+    <string name="accessibility_label">Incoming message bubble</string>
+    <string name="accessibility_summary">Shows a floating bubble that translates incoming chat messages to English on-device.</string>
+    <string name="accessibility_description">Watches the text of messages visible on screen in chat apps and shows a floating bubble with a one-line plain English translation using Google ML Kit on-device translation. Nothing leaves your device.</string>
+
+    <string name="enable_keyboard">Set up keyboard</string>
+    <string name="enable_bubble">Set up message bubble</string>
+    <string name="header_accent">Active accent</string>
+    <string name="header_preview">Outgoing engine preview</string>
+    <string name="hint_input">Type plain English…</string>
+    <string name="btn_convert">Convert</string>
+
+    <string name="status_keyboard_on">Keyboard: enabled</string>
+    <string name="status_keyboard_off">Keyboard: not enabled yet</string>
+    <string name="status_a11y_on">Message bubble: enabled</string>
+    <string name="status_a11y_off">Message bubble: not enabled yet</string>
+
+    <string name="bubble_close">×</string>
+    <string name="bubble_dot_initials">AB</string>
+</resources>

@@ -1,0 +1,428 @@
+{
+  "version": 3,
+  "default_accent": "scottish",
+  "accents": {
+    "scottish": {
+      "label": "Scottish",
+      "words": {
+        "going to go": "gonnae go",
+        "don't know": "dinnae ken",
+        "do not": "dinnae",
+        "don't": "dinnae",
+        "cannot": "cannae",
+        "can't": "cannae",
+        "can not": "cannae",
+        "have not": "havnae",
+        "haven't": "havnae",
+        "is not": "isnae",
+        "isn't": "isnae",
+        "am not": "amnae",
+        "going to": "gonnae",
+        "about": "aboot",
+        "myself": "masel",
+        "yourself": "yersel",
+        "know": "ken",
+        "yes": "aye",
+        "not": "nae",
+        "no": "nae",
+        "small": "wee",
+        "little": "wee",
+        "man": "lad",
+        "boy": "laddie",
+        "woman": "lass",
+        "girl": "lassie",
+        "friend": "pal",
+        "house": "hoose",
+        "down": "doon",
+        "out": "oot",
+        "tired": "scunnered",
+        "you": "ye",
+        "your": "yer"
+      },
+      "regex": [
+        { "pattern": "\\bwith\\b", "replace": "wi'", "case_insensitive": true },
+        { "pattern": "(?<=[a-z])ing\\b", "replace": "in'", "case_insensitive": true }
+      ]
+    },
+    "southern_us": {
+      "label": "Southern US",
+      "words": {
+        "about to": "fixin' to",
+        "going to": "gonna",
+        "want to": "wanna",
+        "got to": "gotta",
+        "kind of": "kinda",
+        "sort of": "sorta",
+        "you all": "y'all",
+        "you guys": "y'all",
+        "youse guys": "y'all",
+        "is not": "ain't",
+        "are not": "ain't",
+        "am not": "ain't",
+        "isn't": "ain't",
+        "aren't": "ain't",
+        "over there": "over yonder",
+        "mother": "mama",
+        "mom": "mama",
+        "grandmother": "meemaw"
+      },
+      "regex": [
+        { "pattern": "(?<=[a-z])ing\\b", "replace": "in'", "case_insensitive": true }
+      ]
+    },
+    "australian": {
+      "label": "Australian",
+      "words": {
+        "good day": "g'day",
+        "thank you": "ta",
+        "thanks": "ta",
+        "friend": "mate",
+        "barbecue": "barbie",
+        "breakfast": "brekkie",
+        "afternoon": "arvo",
+        "ambulance": "ambo",
+        "gas station": "servo",
+        "service station": "servo",
+        "vegetables": "veggies",
+        "definitely": "defs",
+        "probably": "probs",
+        "no problem": "no worries",
+        "chocolate": "choccy"
+      },
+      "regex": [
+        { "pattern": "\\bvery\\b", "replace": "heaps", "case_insensitive": true }
+      ]
+    },
+    "american": {
+      "label": "American (USA)",
+      "words": {
+        "lift": "elevator",
+        "flat": "apartment",
+        "lorry": "truck",
+        "boot": "trunk",
+        "petrol": "gas",
+        "biscuit": "cookie",
+        "chips": "fries",
+        "crisps": "chips",
+        "rubbish": "trash",
+        "queue": "line",
+        "autumn": "fall",
+        "football": "soccer",
+        "jumper": "sweater",
+        "torch": "flashlight",
+        "holiday": "vacation",
+        "loo": "bathroom",
+        "toilet": "restroom",
+        "knackered": "exhausted",
+        "mate": "dude",
+        "brilliant": "awesome",
+        "quid": "bucks",
+        "colour": "color",
+        "favourite": "favorite",
+        "centre": "center",
+        "neighbour": "neighbor",
+        "flavour": "flavor"
+      },
+      "regex": [
+        { "pattern": "(?<=[a-z])ise\\b", "replace": "ize", "case_insensitive": true },
+        { "pattern": "(?<=[a-z])isation\\b", "replace": "ization", "case_insensitive": true }
+      ]
+    },
+    "british": {
+      "label": "British (UK)",
+      "words": {
+        "thank you": "cheers",
+        "thanks": "cheers",
+        "friend": "mate",
+        "man": "bloke",
+        "guy": "bloke",
+        "money": "dosh",
+        "garbage": "rubbish",
+        "trash": "rubbish",
+        "great": "brilliant",
+        "awesome": "brilliant",
+        "cookie": "biscuit",
+        "fries": "chips",
+        "truck": "lorry",
+        "trunk": "boot",
+        "elevator": "lift",
+        "apartment": "flat",
+        "gas": "petrol",
+        "line": "queue",
+        "tired": "knackered",
+        "delighted": "chuffed",
+        "suspicious": "dodgy",
+        "upset": "gutted",
+        "isn't it": "innit",
+        "color": "colour",
+        "favorite": "favourite",
+        "center": "centre",
+        "neighbor": "neighbour",
+        "flavor": "flavour"
+      },
+      "regex": [
+        { "pattern": "(?<=[a-z])ize\\b", "replace": "ise", "case_insensitive": true },
+        { "pattern": "(?<=[a-z])ization\\b", "replace": "isation", "case_insensitive": true }
+      ]
+    },
+    "canadian": {
+      "label": "Canadian",
+      "words": {
+        "about": "aboot",
+        "out": "oot",
+        "without": "withoot",
+        "friend": "buddy",
+        "great": "beauty",
+        "nerd": "keener",
+        "hat": "toque",
+        "beanie": "toque",
+        "couch": "chesterfield",
+        "bathroom": "washroom",
+        "donut": "timbit",
+        "doughnut": "timbit",
+        "fight": "kerfuffle",
+        "mess": "kerfuffle",
+        "sorry": "soory"
+      }
+    },
+    "irish": {
+      "label": "Irish",
+      "words": {
+        "yes": "aye",
+        "no": "naw",
+        "good": "grand",
+        "great": "grand",
+        "fun": "craic",
+        "party": "craic",
+        "idiot": "eejit",
+        "fool": "eejit",
+        "broken": "banjaxed",
+        "ruined": "banjaxed",
+        "hello": "top o' the mornin'",
+        "man": "lad",
+        "boy": "lad",
+        "girl": "colleen",
+        "drunk": "locked",
+        "tired": "wrecked",
+        "thank you": "thanks a million",
+        "thanks": "thanks a million"
+      },
+      "regex": [
+        { "pattern": "\\bst", "replace": "sht", "case_insensitive": true },
+        { "pattern": "(?<=[a-z])ing\\b", "replace": "in'", "case_insensitive": true }
+      ]
+    },
+    "french": {
+      "label": "French",
+      "language": "fr",
+      "words": {
+        "yes": "oui",
+        "no": "non",
+        "friend": "ami",
+        "my friend": "mon ami",
+        "oh my god": "mon dieu",
+        "that's life": "c'est la vie",
+        "wonderful": "magnifique",
+        "very good": "tr\u00E8s bon",
+        "my dear": "ma ch\u00E9rie",
+        "excuse me": "pardon",
+        "of course": "bien s\u00FBr",
+        "i love you": "je t'aime",
+        "thank you": "merci",
+        "thanks": "merci"
+      },
+      "regex": [
+        { "pattern": "\\bth", "replace": "z", "case_insensitive": true }
+      ]
+    },
+    "italian": {
+      "label": "Italian",
+      "language": "it",
+      "words": {
+        "hello": "ciao",
+        "hi": "ciao",
+        "goodbye": "arrivederci",
+        "bye": "arrivederci",
+        "oh my god": "mamma mia",
+        "beautiful": "bellissimo",
+        "delicious": "delizioso",
+        "tasty": "delizioso",
+        "perfect": "perfetto",
+        "let's go": "andiamo",
+        "my love": "amore mio",
+        "friend": "amico",
+        "what a mess": "che pasticcio",
+        "enough": "basta",
+        "come on": "dai",
+        "very": "molto"
+      }
+    },
+    "spanish": {
+      "label": "Spanish",
+      "language": "es",
+      "words": {
+        "my friend": "mi amigo",
+        "friend": "amigo",
+        "dude": "amigo",
+        "oh my god": "dios m\u00EDo",
+        "please": "por favor",
+        "of course": "claro",
+        "hey": "oye",
+        "damn": "caramba",
+        "party": "fiesta",
+        "food": "comida",
+        "house": "casa",
+        "beautiful": "hermosa",
+        "god": "dios",
+        "what": "qu\u00E9",
+        "let's go": "v\u00E1monos"
+      }
+    },
+    "german": {
+      "label": "German",
+      "language": "de",
+      "words": {
+        "yes": "ja",
+        "no": "nein",
+        "my god": "mein gott",
+        "wonderful": "wunderbar",
+        "excellent": "ausgezeichnet",
+        "idiot": "dummkopf",
+        "fast": "schnell",
+        "quick": "schnell",
+        "thanks": "danke",
+        "thank you": "danke sch\u00F6n",
+        "bye": "auf wiedersehen",
+        "goodbye": "auf wiedersehen",
+        "okay": "alles klar",
+        "ok": "alles klar",
+        "work": "arbeit",
+        "beer": "bier",
+        "what": "vhat",
+        "want": "vant",
+        "we": "ve",
+        "why": "vy",
+        "when": "ven",
+        "where": "vere",
+        "wait": "vait"
+      },
+      "regex": [
+        { "pattern": "\\bth", "replace": "z", "case_insensitive": true }
+      ]
+    },
+    "indian": {
+      "label": "Indian",
+      "words": {
+        "friend": "yaar",
+        "buddy": "yaar",
+        "dude": "yaar",
+        "tea": "chai",
+        "ok": "achha",
+        "okay": "achha",
+        "good": "badhiya",
+        "great": "badhiya",
+        "awesome": "ekdum badhiya",
+        "food": "khana",
+        "wow": "wah",
+        "mother": "maa",
+        "mom": "maa",
+        "man": "bhai",
+        "bro": "bhai",
+        "fool": "gadha",
+        "nonsense": "bakwas"
+      },
+      "regex": [
+        { "pattern": "\\bv", "replace": "w", "case_insensitive": true }
+      ]
+    },
+    "jamaican": {
+      "label": "Jamaican",
+      "words": {
+        "yes": "yah mon",
+        "yeah": "yah mon",
+        "no": "nah",
+        "man": "mon",
+        "friend": "bredda",
+        "home": "yaad",
+        "small": "likkle",
+        "little": "likkle",
+        "child": "pickney",
+        "kid": "pickney",
+        "eat": "nyam",
+        "food": "nyam",
+        "good": "irie",
+        "cool": "irie",
+        "happy": "irie",
+        "chill": "limin'",
+        "relax": "limin'",
+        "no problem": "nuh problem",
+        "thank you": "big up",
+        "thanks": "big up",
+        "bye": "walk good",
+        "goodbye": "walk good",
+        "woman": "empress"
+      },
+      "regex": [
+        { "pattern": "\\bth", "replace": "d", "case_insensitive": true },
+        { "pattern": "(?<=[a-z])er\\b", "replace": "ah", "case_insensitive": true }
+      ]
+    },
+    "new_zealand": {
+      "label": "New Zealander",
+      "words": {
+        "yes": "chur",
+        "thanks": "chur",
+        "thank you": "chur",
+        "friend": "bro",
+        "mate": "bro",
+        "hello": "kia ora",
+        "hi": "kia ora",
+        "good": "sweet as",
+        "great": "sweet as",
+        "awesome": "sweet as",
+        "flip flops": "jandals",
+        "sandals": "jandals",
+        "cooler": "chilly bin",
+        "esky": "chilly bin",
+        "very": "heaps",
+        "lots": "heaps",
+        "six": "sux",
+        "fish": "fush",
+        "chips": "chups",
+        "breakfast": "brekkie",
+        "afternoon": "arvo",
+        "cool": "choice"
+      }
+    },
+    "pirate": {
+      "label": "Pirate",
+      "words": {
+        "yes": "arr",
+        "yeah": "arr",
+        "you": "ye",
+        "your": "yer",
+        "friend": "matey",
+        "friends": "hearties",
+        "hello": "ahoy",
+        "hi": "ahoy",
+        "stop": "avast",
+        "wait": "belay",
+        "money": "doubloons",
+        "jerk": "scallywag",
+        "rascal": "scallywag",
+        "food": "grub",
+        "drink": "grog",
+        "beer": "grog",
+        "treasure": "booty",
+        "song": "shanty",
+        "crazy": "addled",
+        "story": "yarn",
+        "joke": "jape",
+        "leave": "weigh anchor"
+      },
+      "regex": [
+        { "pattern": "(?<=[a-z])ing\\b", "replace": "in'", "case_insensitive": true }
+      ]
+    }
+  }
+}
