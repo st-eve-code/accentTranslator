@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AccentBridge</string>
+    <string name="tagline">Outgoing: type plain English, send it in your chosen accent. Incoming: a floating bubble catches new messages - say "translate" or "mark as seen". On-device.</string>
+    <string name="ime_label">AccentBridge Keyboard</string>
+    <string name="subtype_en_us">English (US)</string>
+
+    <string name="accessibility_label">Incoming message bubble</string>
+    <string name="accessibility_summary">Shows a floating bubble for incoming chat messages so you can say "translate" or "mark as seen".</string>
+    <string name="accessibility_description">Watches chat apps for new messages and shows them in a floating bubble. Say "translate" to get an on-device English translation via Google ML Kit, or "mark as seen" to skip it. Nothing leaves your device except nothing - translation is offline.</string>
+
+    <string name="enable_keyboard">Set up keyboard</string>
+    <string name="enable_bubble">Set up message bubble</string>
+    <string name="enable_mic">Allow microphone (voice commands)</string>
+    <string name="header_accent">Active accent</string>
+    <string name="header_preview">Outgoing accent preview</string>
+    <string name="hint_input">Type plain English…</string>
+    <string name="btn_convert">Convert</string>
+
+    <string name="status_keyboard_on">Keyboard: enabled</string>
+    <string name="status_keyboard_off">Keyboard: not enabled yet</string>
+    <string name="status_a11y_on">Message bubble: enabled</string>
+    <string name="status_a11y_off">Message bubble: not enabled yet</string>
+    <string name="status_mic_on">Voice commands: ready ("translate" / "mark as seen")</string>
+    <string name="status_mic_off">Voice commands: microphone not allowed yet</string>
+
+    <string name="bubble_voice">Voice</string>
+    <string name="bubble_listening">Listening…</string>
+    <string name="bubble_translate">Translate</string>
+    <string name="bubble_seen">Seen</string>
+    <string name="bubble_close">×</string>
+    <string name="bubble_dot_initials">AB</string>
+</resources>
